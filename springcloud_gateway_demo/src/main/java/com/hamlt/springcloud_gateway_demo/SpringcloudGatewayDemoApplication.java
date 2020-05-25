@@ -3,6 +3,9 @@ package com.hamlt.springcloud_gateway_demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * https://blog.csdn.net/zxl646801924/article/details/80764279
+ */
 @SpringBootApplication
 public class SpringcloudGatewayDemoApplication {
 
