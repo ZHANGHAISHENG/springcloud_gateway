@@ -2,6 +2,9 @@ package com.hamlt.springcloud_gateway_demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import org.springframework.context.annotation.Bean;
 
 /**
  * https://blog.csdn.net/zxl646801924/article/details/80764279
@@ -11,6 +14,17 @@ public class SpringcloudGatewayDemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringcloudGatewayDemoApplication.class, args);
+	}
+
+	@Bean
+	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+
+		return builder.routes()
+				.route(r -> r.readBody(String.class, requestBody -> { // 返回true才能读取body内容
+									// 这里不对body做判断处理
+									return true;
+								}).uri("http://127.0.0.1:8081/a")).build();
+
 	}
 
 /*
