@@ -22,6 +22,7 @@ import java.util.function.Consumer;
  * @author Administrator
  * @date 2020-05-30 23:48
  *
+ * 获取body 参数
  * https://www.cnblogs.com/hyf-huangyongfei/p/12849406.html
  **/
 @Configuration

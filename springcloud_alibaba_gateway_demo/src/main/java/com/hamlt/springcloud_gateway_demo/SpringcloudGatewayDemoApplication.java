@@ -9,6 +9,12 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * https://blog.csdn.net/zxl646801924/article/details/80764279
+ *
+ * 整合nacos
+ * https://blog.csdn.net/cdy1996/article/details/87391609
+ *
+ * 负载ribbon：
+ * https://www.cnblogs.com/ye-feng-yu/p/11106006.html
  */
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -25,7 +31,7 @@ public class SpringcloudGatewayDemoApplication {
 				.route(r -> r.readBody(String.class, requestBody -> { // 返回true才能读取body内容
 									// 这里不对body做判断处理
 									return true;
-								}).uri("http://127.0.0.1:8081/a")).build();
+								}).uri("lb://spring-boot-test")).build();
 
 	}
 
