@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.hamlt</groupId>
-	<artifactId>springboot_test</artifactId>
+	<artifactId>springcloud_alibaba_gateway_demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot_test</name>
+	<name>springcloud_alibaba_gateway_demo</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -19,15 +19,14 @@
 	</properties>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		  <groupId>org.springframework.cloud</groupId>
+		  <artifactId>spring-cloud-starter-gateway</artifactId>
 		</dependency>
 
 		<dependency>
@@ -62,7 +61,6 @@
 		</plugins>
 	</build>
 
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -81,4 +79,5 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 </project>
