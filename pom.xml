@@ -10,6 +10,7 @@
 
 	<modules>
 		<module>springcloud_gateway_demo</module>
+		<module>springcloud_alibaba_gateway_demo</module>
 		<module>springboot_test</module>
 	</modules>
 </project>
