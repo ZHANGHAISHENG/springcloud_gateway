@@ -29,7 +29,6 @@ public class SpringcloudGatewayDemoApplication {
 
 		return builder.routes()
 				.route(r -> r.readBody(String.class, requestBody -> { // 返回true才能读取body内容
-									// 这里不对body做判断处理
 									return true;
 								}).uri("lb://spring-boot-test")).build();
 
