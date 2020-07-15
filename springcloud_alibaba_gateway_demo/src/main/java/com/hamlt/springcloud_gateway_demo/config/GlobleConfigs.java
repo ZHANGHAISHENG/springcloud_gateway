@@ -1,4 +1,4 @@
-package com.hamlt.springcloud_gateway_demo;
+package com.hamlt.springcloud_gateway_demo.config;
 
 import org.reactivestreams.Publisher;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
