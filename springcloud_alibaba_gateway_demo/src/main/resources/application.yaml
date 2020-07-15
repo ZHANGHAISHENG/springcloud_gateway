@@ -1,22 +1,16 @@
-server:
-  port: 8080
-
 spring:
   application:
-     name: spring-cloud-gateway
+     name: spring-cloud-gateway-demo
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
-    gateway:
-      discovery:
-        locator:
-          enabled: true  #表明gateway开启服务注册和发现的功能，并且spring cloud gateway自动根据服务发现为每一个服务创建了一个router，这个router将以服务名开头的请求路径转发到对应的服务。
-          lowerCaseServiceId: true   #是将请求路径上的服务名配置为小写（因为服务注册的时候，向注册中心注册时将服务名转成大写的了），比如以/service-hi/*的请求路径被路由转发到服务名为service-hi的服务上。
-          filters:
-            - StripPrefix=1  # 例如访问： http://127.0.0.1:8080/spring-boot-test/test/2 跳转到  http://127.0.0.1:8081/test/2
-      routes:
-      - id: path_route
-        uri: lb://spring-boot-test # http://127.0.0.1:8081
-        predicates:
-        - Path=/test/**  # http://127.0.0.1:8080/test/2 跳转到 http://127.0.0.1:8081/test/2
+        server-addr: 172.20.11.233:8849
+        namespace: zhs
+      config:
+        namespace: zhs
+
+nacos:
+  address: 172.20.11.233:8849
+  data-id: spring-cloud-gateway-demo.yaml
+  group-id: DEFAULT_GROUP
+  timeout: 5000
