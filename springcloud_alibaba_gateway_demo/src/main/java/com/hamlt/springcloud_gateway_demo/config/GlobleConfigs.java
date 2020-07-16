@@ -37,6 +37,7 @@ public class GlobleConfigs {
 
         @Override
         public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+            int i = 1/0;
             ServerHttpRequest serverHttpRequest = exchange.getRequest();
             // 设置头部信息
             Consumer<HttpHeaders> headersConsumer = x -> {
