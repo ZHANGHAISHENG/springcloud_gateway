@@ -51,7 +51,7 @@ public class GlobleConfigs {
                 System.out.println("request:" + requestBody);
             } else if ("GET".equals(method)) {
                 MultiValueMap<String, String> queryParams = serverHttpRequest.getQueryParams();
-                System.out.println(queryParams);
+                System.out.println("request:" + queryParams);
                 return chain.filter(exchange);
             }
             ServerHttpResponseDecorator decoratedResponse = readResponse(exchange.getResponse());

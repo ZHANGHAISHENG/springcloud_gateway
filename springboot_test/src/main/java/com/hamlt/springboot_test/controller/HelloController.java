@@ -18,7 +18,7 @@ public class HelloController {
         return String.format("Hello %s! userId %s, userName %s, val %s", name, request.getHeader("userId"), request.getHeader("userName"), request.getAttribute("val1"));
     }
 
-    @RequestMapping("/test/2")
+    @RequestMapping("/test2/2")
     public String test2(@RequestParam(value = "name", defaultValue = "test2") String name, String k, HttpServletRequest request) {
         return String.format("Hello %s! userId %s, userName %s, k %s, val %s", name, request.getHeader("userId"), request.getHeader("userName"), k, request.getAttribute("val1"));
     }
