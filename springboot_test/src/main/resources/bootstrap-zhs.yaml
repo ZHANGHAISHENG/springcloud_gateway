@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        namespace: zhs
+      discovery:
+        namespace: zhs
+
+
