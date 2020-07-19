@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: zhs
+  application:
+    name: spring-cloud-gateway-demo
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8849
+      config:
+        server-addr: 127.0.0.1:8849
+        file-extension: yaml
+
