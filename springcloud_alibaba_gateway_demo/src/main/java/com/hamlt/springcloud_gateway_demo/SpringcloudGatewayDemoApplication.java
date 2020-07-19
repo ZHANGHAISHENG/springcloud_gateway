@@ -7,6 +7,8 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 
+import java.util.function.Predicate;
+
 /**
  * https://blog.csdn.net/zxl646801924/article/details/80764279
  *
@@ -24,6 +26,8 @@ public class SpringcloudGatewayDemoApplication {
 		SpringApplication.run(SpringcloudGatewayDemoApplication.class, args);
 	}
 
+
+/*
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 
@@ -33,6 +37,7 @@ public class SpringcloudGatewayDemoApplication {
 								}).uri("lb://spring-boot-test")).build();
 
 	}
+*/
 
 /*
 

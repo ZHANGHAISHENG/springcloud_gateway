@@ -1,0 +1,22 @@
+server:
+  port: 8081
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true  
+          lowerCaseServiceId: true  
+          filters:
+            - StripPrefix=1 
+      routes:
+      - id: path_route
+        uri: lb://spring-boot-test
+        predicates:
+        - Path=/test/**
+        # 添加允许读取body配置
+        - name: ReadBodyPredicateFactory
+          args:
+            inClass: '#{T(String)}'
+            predicate: '#{@bodyPredicate}' #注入实现predicate接口类
