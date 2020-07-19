@@ -1,17 +1,22 @@
 package com.hamlt.springcloud_gateway_demo.auth;
 
-import com.hamlt.springcloud_gateway_demo.auth.AuthorizationManager;
+import com.hamlt.springcloud_gateway_demo.filter.TokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.authentication.RedirectServerAuthenticationEntryPoint;
+import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
+import org.springframework.security.web.server.authorization.AuthorizationWebFilter;
+import org.springframework.security.web.server.context.ReactorContextWebFilter;
+import org.springframework.security.web.server.savedrequest.ServerRequestCacheWebFilter;
+import org.springframework.web.server.WebFilter;
+
+import java.util.Iterator;
 
 /**
  * @author Administrator
@@ -25,34 +30,42 @@ public class WebSecurityConfig {
     @Autowired
     private AuthorizationManager authorizationManager;
 
-    /*@Bean
-    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        http
-                .authorizeExchange()
-                .pathMatchers(HttpMethod.OPTIONS).permitAll() //option 请求默认放行
-                .anyExchange().access(authorizationManager)
-                .and()
-                .httpBasic()
-                .and()
-                .formLogin() //启动页面表单登陆,spring security 内置了一个登陆页面/login
-                .and().csrf().disable()//必须支持跨域
-                .logout().disable();
-        return http.build();
-    }
-*/
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
+
+    @Autowired
+    private AuthenticationEntryPoint authenticationEntryPoint;
+
+    @Autowired
+    private TokenFilter tokenFilter;
+
     @Bean
-    public SecurityWebFilterChain securitygWebFilterChain(ServerHttpSecurity http) {
-        return http
-                .csrf().disable()
-                .formLogin().loginPage("login")
-                .and()
-                .httpBasic().disable()
-                .authorizeExchange()
-                .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                .pathMatchers("/user/login").permitAll()
-                .anyExchange().authenticated()
-                .and().build();
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+       // http.oauth2ResourceServer().bearerTokenConverter(new MyAuthenticationConverter());
+       // new AuthenticationWebFilter((ReactiveAuthenticationManager) authorizationManager);
+        http.addFilterBefore(tokenFilter, SecurityWebFiltersOrder.AUTHORIZATION);
+        http.formLogin().and().authorizeExchange()
+            .anyExchange().access(authorizationManager)
+                .and().exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)//处理未授权
+                .authenticationEntryPoint(authenticationEntryPoint)//处理未认证
+            .and().csrf().disable();//必须支持跨域
+        SecurityWebFilterChain chain = http.build();
+        setConverter(chain); // 可以直接定义拦截器处理token
+        return chain;
     }
+
+    public void setConverter(SecurityWebFilterChain chain) {
+        Iterator<WebFilter> weIterable = chain.getWebFilters().toIterable().iterator(); //最后一filter是AuthorizationWebFilter,执行权限校验
+        while(weIterable.hasNext()) {
+            WebFilter f = weIterable.next(); // AuthenticationWebFilter 拦截方式未生效还有待研究
+            if(f instanceof AuthenticationWebFilter) { // 声明了 formLogin 才会添加AuthenticationWebFilter
+                AuthenticationWebFilter webFilter = (AuthenticationWebFilter) f;
+                webFilter.setServerAuthenticationConverter(new MyAuthenticationConverter());
+            }
+        }
+    }
+
 
 }
 

@@ -23,13 +23,9 @@ import java.util.function.Consumer;
 
 public class CustomGlobalFilter implements GlobalFilter, Ordered {
 
-    @Autowired
-    private TokenStore tokenStore;
-
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        //直接使用 tokenStore读取用户授权信息
-        OAuth2Authentication oAuth2Authentication = tokenStore.readAuthentication("67e9da9d-1237-4b8c-908b-3b156c199826");
+
         //  int i = 1/0;
         ServerHttpRequest serverHttpRequest = exchange.getRequest();
         // 设置头部信息

@@ -3,11 +3,6 @@ package com.hamlt.springcloud_gateway_demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.gateway.route.RouteLocator;
-import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
-import org.springframework.context.annotation.Bean;
-
-import java.util.function.Predicate;
 
 /**
  * https://blog.csdn.net/zxl646801924/article/details/80764279
@@ -20,10 +15,10 @@ import java.util.function.Predicate;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class SpringcloudGatewayDemoApplication {
+public class SpringCloudGatewaySecurityDemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringcloudGatewayDemoApplication.class, args);
+		SpringApplication.run(SpringCloudGatewaySecurityDemoApplication.class, args);
 	}
 
 }

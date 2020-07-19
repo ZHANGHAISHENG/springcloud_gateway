@@ -1,4 +1,4 @@
-package com.hamlt.springcloud_gateway_demo.auth;
+package com.hamlt.springcloud_gateway_demo.token_store;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
