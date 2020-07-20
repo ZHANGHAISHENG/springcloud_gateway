@@ -31,8 +31,8 @@ public class TokenFilter implements WebFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         //直接使用 tokenStore读取用户授权信息
-        OAuth2Authentication oAuth2Authentication = tokenStore.readAuthentication("2059e14d-075c-48c6-8d39-3a8e5e16b228");
-        oAuth2Authentication.setAuthenticated(true);
+        String token = exchange.getRequest().getHeaders().getFirst("token");
+        OAuth2Authentication oAuth2Authentication = tokenStore.readAuthentication(token);
         Context context = ReactiveSecurityContextHolder.withAuthentication(oAuth2Authentication);
         return chain.filter(exchange).subscriberContext(x -> context);
     }
